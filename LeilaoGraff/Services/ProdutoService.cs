@@ -2,6 +2,7 @@
 using LeilaoGraff.Dtos;
 using LeilaoGraff.Interfaces;
 using LeilaoGraff.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace LeilaoGraff.Services
@@ -13,6 +14,27 @@ namespace LeilaoGraff.Services
         {
             _context = context;
         }
+
+        public ProdutoDto ObterPorId(int id)
+        {
+            return ProdutoDto.CriarProdutoDto(_context.Produtos.FirstOrDefault(x => x.Id == id));
+        }
+
+        public List<ProdutoDto> Listar()
+        {
+            return _context.Produtos.Select(x => ProdutoDto.CriarProdutoDto(x)).ToList();
+        }
+
+        public List<ProdutoDto> Filtrar(ProdutoDto produto)
+        {
+            var consulta = _context.Produtos.AsQueryable();
+
+            consulta = consulta.Where(x => ( string.IsNullOrEmpty(produto.Nome) || x.Nome == produto.Nome) &&
+                                           ( produto.Valor == 0 || x.Valor == produto.Valor)
+                                     );
+            return consulta.Select(x => ProdutoDto.CriarProdutoDto(x)).ToList();
+        }
+
         public void Armazenar(ProdutoDto produto)
         {
             if (produto.Id == 0)
@@ -20,11 +42,14 @@ namespace LeilaoGraff.Services
                 var novoProduto = new Produto(produto.Nome, produto.Valor);
 
                 if (novoProduto.Validar())
-                    _context.Set<Produto>().Add(novoProduto);
+                {
+                    _context.Produtos.Add(novoProduto);
+                    _context.SaveChanges();
+                }
             }
             else
             {
-                var produtoEditado = _context.Set<Produto>().FirstOrDefault(x => x.Id == produto.Id);
+                var produtoEditado = _context.Produtos.FirstOrDefault(x => x.Id == produto.Id);
 
                 if (produtoEditado != null)
                 {
@@ -32,20 +57,22 @@ namespace LeilaoGraff.Services
                     produtoEditado.AlterarValor(produto.Valor);
 
                     if (produtoEditado.Validar())
-                        _context.Set<Produto>().Update(produtoEditado);
+                    {
+                        _context.Produtos.Update(produtoEditado);
+                        _context.SaveChanges();
+                    }
                 }
             }
-
-            _context.SaveChanges();
         }
 
         public void Deletar(int id)
         {
-            var produto = _context.Set<Produto>().FirstOrDefault(x => x.Id == id);
+            var produto = _context.Produtos.FirstOrDefault(x => x.Id == id);
             if (produto != null)
-                _context.Set<Produto>().Remove(produto);
-
-            _context.SaveChanges();
+            {
+                _context.Produtos.Remove(produto);
+                _context.SaveChanges();
+            }
         }
     }
 }

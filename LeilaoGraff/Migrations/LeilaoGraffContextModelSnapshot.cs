@@ -26,9 +26,6 @@ namespace LeilaoGraff.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CascadeMode")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
@@ -57,9 +54,6 @@ namespace LeilaoGraff.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CascadeMode")
-                        .HasColumnType("int");
-
                     b.Property<int>("Idade")
                         .HasColumnType("int");
 
@@ -77,9 +71,6 @@ namespace LeilaoGraff.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CascadeMode")
-                        .HasColumnType("int");
 
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");

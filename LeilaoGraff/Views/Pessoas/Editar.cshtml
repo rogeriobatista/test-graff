@@ -1,0 +1,23 @@
+﻿@using LeilaoGraff.Dtos;
+@{
+    ViewData["Title"] = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var pessoa = (PessoaDto)ViewData["pessoa"];
+}
+
+    <div class="container">
+        <h2>Editar Pessoa</h2>
+        <form action="/Pessoas/Armazenar" method="post">
+            <input type="hidden" name="id" value="@pessoa.Id" />
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Informe o Nome" value="@pessoa.Nome" required>
+            </div>
+            <div class="form-group">
+                <label for="idade">Idade:</label>
+                <input type="number" class="form-control" id="idade" name="idade" placeholder="Informe o Valor" value="@pessoa.Idade" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+    </div>
+

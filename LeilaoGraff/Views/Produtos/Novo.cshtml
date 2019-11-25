@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "Novo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="container">
+        <h2>Novo Produto</h2>
+        <form action="/Produtos/Armazenar" method="post">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Informe o Nome" required>
+            </div>
+            <div class="form-group">
+                <label for="valor">Valor:</label>
+                <input type="number" class="form-control" id="valor" name="valor" placeholder="Informe o Valor" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+    </div>
+

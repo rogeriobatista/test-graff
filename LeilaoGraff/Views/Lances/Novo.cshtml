@@ -1,0 +1,47 @@
+﻿@using LeilaoGraff.Dtos;
+@{
+    ViewData["Title"] = "Novo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var produtos = (List<ProdutoDto>)ViewData["produtos"];
+    var pessoas = (List<PessoaDto>)ViewData["pessoas"];
+    var message = (string)ViewData["message"];
+}
+
+    <div class="container">
+        <h2>Novo Lance</h2>
+        @if (!string.IsNullOrEmpty(message))
+        {
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Desculpe pelo transtorno!</strong> Seu valor de lance é inválido. Informe um valor maior que um lance anterior para este produto.
+            </div>
+        }
+        <form action="/Lances/Armazenar" method="post">
+            <div class="form-group">
+                <label for="pessoaId">Pessoa:</label>
+                <select class="form-control" id="pessoaId" name="pessoaId" required>
+                    <option value="">Selecione uma Pessoa</option>
+                    @foreach (var pessoa in pessoas)
+                    {
+                        <option value="@pessoa.Id">@pessoa.Nome</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="nome">Produto:</label>
+                <select class="form-control" id="produtoId" name="produtoId" required>
+                    <option value="">Selecione um Produto</option>
+                    @foreach (var produto in produtos)
+                    {
+                        <option value="@produto.Id">@produto.Nome</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="valor">Valor:</label>
+                <input type="number" class="form-control" id="valor" name="valor" placeholder="Informe o Valor" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+    </div>
+

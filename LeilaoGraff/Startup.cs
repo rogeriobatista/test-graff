@@ -1,4 +1,6 @@
 using LeilaoGraff.Context;
+using LeilaoGraff.Interfaces;
+using LeilaoGraff.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -22,8 +24,11 @@ namespace LeilaoGraff
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<LeilaoGraffContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("LeilaoGraffDatabase")));
+            services.AddDbContext<LeilaoGraffContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LeilaoGraffDatabase")));
+
+            services.AddScoped(typeof(IPessoaService), typeof(PessoaService));
+            services.AddScoped(typeof(IProdutoService), typeof(ProdutoService));
+            services.AddScoped(typeof(ILanceService), typeof(LanceService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

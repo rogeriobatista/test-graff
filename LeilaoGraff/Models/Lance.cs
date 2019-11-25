@@ -14,12 +14,10 @@ namespace LeilaoGraff.Models
 
         protected Lance() {}
 
-        public Lance(int pessoaId, Pessoa pessoa, int produtoId, Produto produto, decimal valor)
+        public Lance(int pessoaId, int produtoId, decimal valor)
         {
             PessoaId = pessoaId;
-            Pessoa = pessoa;
             ProdutoId = produtoId;
-            Produto = produto;
             Valor = valor;
             Data = DateTime.Now;
         }
@@ -40,6 +38,21 @@ namespace LeilaoGraff.Models
 
             ValidationResult = Validate(this);
             return ValidationResult.IsValid;
+        }
+
+        public void AlterarPessoaId(int pessoaId)
+        {
+            PessoaId = pessoaId;
+        }
+
+        public void AlterarProdutoId(int produtoId)
+        {
+            ProdutoId = produtoId;
+        }
+
+        public void AlterarValor(decimal valor)
+        {
+            Valor = valor;
         }
     }
 }

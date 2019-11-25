@@ -1,0 +1,42 @@
+﻿@using LeilaoGraff.Dtos;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var produtos = (List<ProdutoDto>) ViewData["produtos"];
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10">
+            <h2>Produtos</h2>
+            <p>Produtos cadastrados para leilão:</p>
+        </div>
+        <div class="col-lg-2">
+            <a class="btn btn-primary btn-block" asp-area="" asp-controller="Produtos" asp-action="Novo">Novo Produto</a>
+        </div>
+    </div>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Valor</th>
+                <th>A&ccedil;&otilde;es</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var produto in produtos)
+            {
+                <tr>
+                    <td>@produto.Nome</td>
+                    <td>@string.Format(new System.Globalization.CultureInfo("pt-BR"), "{0:C}", produto.Valor)</td>
+                    <td>
+                        <a class="btn btn-sm btn-info" asp-area="" asp-controller="Produtos" asp-action="Editar" asp-route-id="@produto.Id">Editar</a>
+                        <a class="btn btn-sm btn-danger" asp-area="" asp-controller="Produtos" asp-action="Remover" asp-route-id="@produto.Id">Remover</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

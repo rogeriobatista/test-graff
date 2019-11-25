@@ -1,0 +1,23 @@
+﻿@using LeilaoGraff.Dtos;
+@{
+    ViewData["Title"] = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var produto = (ProdutoDto) ViewData["produto"];
+}
+
+    <div class="container">
+        <h2>Editar Produto</h2>
+        <form action="/Produtos/Armazenar" method="post">
+            <input type="hidden" name="id" value="@produto.Id"/>
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Informe o Nome" value="@produto.Nome" required>
+            </div>
+            <div class="form-group">
+                <label for="valor">Valor:</label>
+                <input type="number" class="form-control" id="valor" name="valor" placeholder="Informe o Valor" value="@produto.Valor" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+    </div>
+

@@ -1,0 +1,55 @@
+﻿@using LeilaoGraff.Dtos;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var lances = (List<LanceDto>)ViewData["lances"];
+}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10">
+                <h2>Lances</h2>
+                <p>Lances efetuados a produtos:</p>
+            </div>
+            <div class="col-lg-2">
+                <a class="btn btn-primary btn-block" asp-area="" asp-controller="Lances" asp-action="Novo">Novo Lance</a>
+            </div>
+        </div>
+
+        <div class="row mb-4 mt-3">
+            <form class="form" style="width: 100%;" action="/Lances/Filtrar" method="get">
+                <div class="col-lg-10 float-left">
+                    <div class="col-lg-6 float-left">
+                        <input type="text" name="pessoa" class="form-control" placeholder="Nome da Pessoa" />
+                    </div>
+                    <div class="col-lg-6 float-right">
+                        <input type="text" name="produto" class="form-control" placeholder="Nome do Produto" />
+                    </div>
+                </div>
+                <div class="col-lg-2 float-right">
+                    <button class="btn btn-primary btn-block">Filtrar</button>
+                </div>
+            </form>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Pessoa</th>
+                    <th>Produto</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var lance in lances)
+                {
+                <tr>
+                    <td>@lance.Produto.Nome</td>
+                    <td>@lance.Pessoa.Nome</td>
+                    <td>@string.Format(new System.Globalization.CultureInfo("pt-BR"), "{0:C}", lance.Valor)</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+

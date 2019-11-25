@@ -29,5 +29,15 @@ namespace LeilaoGraff.Models
             ValidationResult = Validate(this);
             return ValidationResult.IsValid;
         }
+
+        public void AlterarNome(string nome)
+        {
+            Nome = nome;
+        }
+
+        public void AlterarIdade(int idade)
+        {
+            Idade = idade;
+        }
     }
 }
